@@ -1,7 +1,7 @@
 fig/*.pdf
 __pycache__/
-tikz/*.aux
-tikz/*.fdb_latexmk
-tikz/*.fls
-tikz/*.log
-tikz/*.pdf
+tikz/**/*.aux
+tikz/**/*.fdb_latexmk
+tikz/**/*.fls
+tikz/**/*.log
+tikz/**/*.pdf
