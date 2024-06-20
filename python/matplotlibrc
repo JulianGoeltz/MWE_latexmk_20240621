@@ -1,0 +1,31 @@
+backend               : pdf
+
+font.family           : sans-serif
+font.sans-serif       : Computer Modern
+font.style            : normal
+font.weight           : normal
+font.size             : 10
+
+text.usetex           : True
+text.latex.preamble   : \usepackage{siunitx}\sisetup{detect-all}\usepackage{sansmathfonts}
+mathtext.default      : regular
+
+figure.dpi            : 600
+figure.subplot.hspace : 0.
+figure.subplot.wspace : 0.
+legend.loc            : best
+
+axes.facecolor        : none
+figure.facecolor      : none
+savefig.facecolor     : none
+
+axes.labelpad         : 2
+axes.xmargin          : 0
+figure.titlesize      : 10
+axes.labelsize        : 8
+ytick.labelsize       : 8
+xtick.labelsize       : 8
+
+legend.fontsize       : 7
+legend.labelspacing   : 0.20
+legend.frameon        : False
