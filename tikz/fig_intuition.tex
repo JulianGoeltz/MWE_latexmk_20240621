@@ -1,0 +1,183 @@
+\documentclass[crop,tikz]{standalone}
+
+\usepackage{siunitx}\sisetup{detect-all}\usepackage{sansmathfonts}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+
+\usepackage[outline]{contour}
+
+\usepackage{rotating}
+
+\begin{document}
+
+\def\layersep{1.5cm}
+\definecolor{correctLabel}{rgb}{0.8392156862745098,0.15294117647058825,0.1568627450980392}
+\definecolor{incorrectLabel}{rgb}{0.12156862745098039, 0.4666666666666667, 0.7058823529411765}
+
+\definecolor{mplColoursC0}{rgb}{0.12156862745098039, 0.4666666666666667, 0.7058823529411765}
+\definecolor{mplColoursC1}{rgb}{1.0, 0.4980392156862745, 0.054901960784313725}
+\definecolor{mplColoursC2}{rgb}{0.17254901960784313, 0.6274509803921569, 0.17254901960784313}
+\definecolor{mplColoursC3}{rgb}{0.8392156862745098, 0.15294117647058825, 0.1568627450980392}
+\definecolor{mplColoursC4}{rgb}{0.5803921568627451, 0.403921568627451, 0.7411764705882353}
+\definecolor{mplColoursC5}{rgb}{0.5490196078431373, 0.33725490196078434, 0.29411764705882354}
+\definecolor{mplColoursC6}{rgb}{0.8901960784313725, 0.4666666666666667, 0.7607843137254902}
+\definecolor{mplColoursC7}{rgb}{0.4980392156862745, 0.4980392156862745, 0.4980392156862745}
+\definecolor{mplColoursC8}{rgb}{0.7372549019607844, 0.7411764705882353, 0.13333333333333333}
+\definecolor{mplColoursC9}{rgb}{0.09019607843137255, 0.7450980392156863, 0.8117647058823529}
+
+\def\inputshadeIa{100}
+\def\inputshadeIb{15}
+\def\inputshadeIc{0}
+\def\inputshadeId{85}
+\def\inputshadeIe{50}
+
+\begin{tikzpicture}[
+            scale=1.,
+            >=latex,
+            transform shape,
+        ]
+        \pgfdeclarelayer{background layer}
+        \pgfsetlayers{background layer,main}
+        \draw[use as bounding box,inner sep=0pt, anchor=north west] node {\includegraphics{../fig/fig_intuition.pdf}};
+
+       \node[inner sep=0pt, anchor=north west, scale=0.8] (whitehead) at (0.25, -0.95)
+       {
+		   \begin{turn}{90}
+			\begin{tikzpicture}[
+				shorten >=0.05pt,
+				->,
+				draw=black,
+				node distance=\layersep,
+				scale=1.2,
+				transform shape]
+				\tikzstyle{every pin edge}=[<-,shorten <=0.5pt]
+				\tikzstyle{neuron}=[circle,draw=black,minimum size=17pt,inner sep=0pt, line width=1.0pt]
+				\tikzstyle{triangle} = [neuron, regular polygon, regular polygon sides=3,rotate=-90];
+				\tikzstyle{input neuron}=[neuron, circle, draw=gray];
+				\tikzstyle{hidden neuron}=[neuron, draw=gray];
+				\tikzstyle{label neuron}=[neuron, draw=none];
+				\tikzstyle{label neuron-1}=[label neuron, fill=mplColoursC0, ];
+				\tikzstyle{label neuron-2}=[label neuron, fill=mplColoursC1, ];
+				\tikzstyle{label neuron-3}=[label neuron, fill=mplColoursC2, ];
+				\tikzstyle{label neuron-4}=[label neuron, fill=mplColoursC1, ];
+				\tikzstyle{annot} = [text width=4em, text centered]
+				\tikzstyle{connection} = [line width=0.8pt, -{Latex[length=6.0pt, width=4.0pt]}, draw=black!80]
+
+				\def\numInputs{5}
+				\def\numHidden{6}
+				\def\numLabel{3}
+                \def\yshiftInput{1.0}
+                \def\yshiftHidden{1.5}
+                \def\yshiftLabel{0.0}
+
+				\foreach \name / \y in {1,...,\numInputs}
+					\path[yshift=\yshiftInput cm, anchor=center]
+                        node[input neuron, anchor=center] (I-\name) at (0, -\y cm) {};
+
+				\foreach \name / \y in {1,...,\numHidden}
+					\path[yshift=\yshiftHidden cm, anchor=center]
+						node[hidden neuron, anchor=center] (H-\name) at (\layersep, -\y cm) {};
+
+				\foreach \name / \y in {1,...,\numLabel}
+					\path[yshift=\yshiftLabel cm, anchor=center]
+						node[label neuron-\name, anchor=center] (L-\name) at (2 *\layersep, -\y cm) {};
+
+				\foreach \source in {1,...,\numInputs}
+					\foreach \dest in {1,...,\numHidden}
+						\draw[connection] (I-\source) --++ (H-\dest);
+
+				\foreach \source in {1,...,\numHidden}
+					\foreach \dest in {1,...,\numLabel}
+						\path[connection] (H-\source) edge (L-\dest);
+
+			\end{tikzpicture}
+		\end{turn}
+	};
+       \node[inner sep=0pt, anchor=north west, scale=1.2] (whitehead) at (14.05, -0.45)
+       {
+			\begin{tikzpicture}[scale=2.2,x=1.3cm,y=0.9cm]
+
+				\def\numInputs{5}
+				\def\numHidden{6}
+				\def\numLabel{3}
+
+				\def\spikesHidden{{
+							0.4, 0.39, 
+                            0.8, 0.9,
+                            0.55, 0.42,
+							1.105, 1.205, 0.53, 0.9,
+							0.38, 0.49,
+					}}
+				\def\spikesLabel{{
+							1.3,
+							1.2,
+							0.9,
+							1.28
+					}}
+
+				\def\offset{0.35}
+
+				\def\toffsetI{0.85}
+				\def\toffsetH{0.10}
+				\def\toffsetL{-0.35}
+
+				\def\tScale{0.8}
+
+				\tikzstyle{input}=[circle, draw=gray, minimum size=2, inner sep=0pt, line width=0.4pt]
+				\tikzstyle{input neuron-early}=[input, fill=black];
+				\tikzstyle{input neuron-late}=[input, xshift=0.6cm * \tScale];
+
+                \tikzstyle{input neuron-1}=[input, xshift=-0.6cm * \tScale * \inputshadeIa / 100]
+                \tikzstyle{input neuron-2}=[input, xshift=-0.6cm * \tScale * \inputshadeIb / 100]
+                \tikzstyle{input neuron-3}=[input, xshift=-0.6cm * \tScale * \inputshadeIc / 100]
+                \tikzstyle{input neuron-4}=[input, xshift=-0.6cm * \tScale * \inputshadeId / 100]
+                \tikzstyle{input neuron-5}=[input, xshift=-0.6cm * \tScale * \inputshadeIe / 100]
+
+				\tikzstyle{hidden neuron}=[input, circle, draw=gray];
+
+				\tikzstyle{triangle} = [input, regular polygon, regular polygon sides=3 ];
+				\tikzstyle{label neuron}=[circle, minimum size=2];
+				\tikzstyle{label neuron-1}=[label neuron, draw=mplColoursC0, fill=mplColoursC0];
+				\tikzstyle{label neuron-2}=[label neuron, draw=mplColoursC1, fill=mplColoursC1];
+				\tikzstyle{label neuron-3}=[label neuron, draw=mplColoursC2, fill=mplColoursC2];
+				\tikzstyle{label neuron-4}=[label neuron, draw=mplColoursC1, fill=mplColoursC1];
+
+
+				\foreach \id in {1,...,\numInputs}
+					\pgfmathsetmacro{\idCoord}{\id/10.0 + \offset}
+					\pgfmathsetmacro{\tCoord}{\toffsetI * \tScale}
+					\node[input neuron-\id] at (\tCoord, \idCoord) {};
+
+				\pgfmathsetmacro{\offset}{\offset + 0.1 * \numInputs + 0.07}
+				\draw [dotted] (0.2 * \tScale, \offset) -- (1.3 * \tScale, \offset);
+
+				\pgfmathsetmacro{\offset}{\offset + 0.13}
+				\foreach \tmpId in {1,...,\numHidden}
+					\pgfmathsetmacro{\id}{\tmpId - 1}
+					\pgfmathsetmacro{\idCoord}{\id/10.0 + \offset}
+					\pgfmathsetmacro{\tCoord}{\spikesHidden[\id] * \tScale + \toffsetH * \tScale}
+					\node[hidden neuron] (H-\id) at (\tCoord, \idCoord) {}
+					;
+
+				\pgfmathsetmacro{\offset}{\offset +  \numHidden / 14.0 + 0.15}
+				\draw [dotted] (0.2 * \tScale, \offset) -- (1.3 * \tScale, \offset);
+
+				\pgfmathsetmacro{\offset}{\offset + 0.2}
+				\foreach \tmpId in {1,...,\numLabel}
+					\pgfmathsetmacro{\id}{\tmpId - 1}
+					\pgfmathsetmacro{\idCoord}{\id/10.0 + \offset}
+					\pgfmathsetmacro{\tCoord}{\spikesLabel[\id] * \tScale + \toffsetL * \tScale}
+					\node[label neuron-\tmpId] (L-\id) at (\tCoord, \idCoord) {}
+					;
+
+			\end{tikzpicture}
+	   };
+
+
+
+  \end{tikzpicture}
+\end{document}
