@@ -41,6 +41,13 @@ jobs:
           make tikz/fig_intuition/fig_intuition.pdf
           make tikz/fig_intuition/fig_intuition.pdf
           (cd tikz/fig_intuition; latexmk -pdf fig_intuition.tex)
+      - name: 'Upload PDFs as artifacts'
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiledFigPDFsInitial
+          path: |
+            fig/*.pdf
+            tikz/fig*/*.pdf
       - name: Do change, and then rerun
         run: |
           . venv/bin/activate
@@ -49,3 +56,10 @@ jobs:
           make fig/fig_intuition.pdf
           make tikz/fig_intuition/fig_intuition.pdf
           (cd tikz/fig_intuition; latexmk -pdf fig_intuition.tex)
+      - name: 'Upload PDFs as artifacts'
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiledFigPDFsFinal
+          path: |
+            fig/*.pdf
+            tikz/fig*/*.pdf
