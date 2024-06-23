@@ -10,13 +10,20 @@ jobs:
   buildPython:
     runs-on: ubuntu-latest
     container:
-      image: texlive/texlive
+      image: ubuntu:20.04
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: true
       - name: update apt-get
         run: apt-get update
+      - name: install latexmk
+        run: |
+          wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+          zcat < install-tl-unx.tar.gz | tar xf -
+          cd install-tl-*
+          perl ./install-tl --no-interaction
+          echo /usr/local/texlive/2024/bin/x86_64-linux >> $GITHUB_PATH
       - name: install build-essential, python3-dev, python3-full, python3-venv
         run: |
           apt-get install -y build-essential
