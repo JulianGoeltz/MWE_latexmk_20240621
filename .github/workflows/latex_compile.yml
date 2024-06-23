@@ -35,8 +35,8 @@ jobs:
       - name: First run of making plots (calls twice just to show that they did everything)
         run: |
           . venv/bin/activate
-          make fig/fig_intuition.pdf
-          make fig/fig_intuition.pdf
+          make fig/fig.pdf
+          make fig/fig.pdf
           make tikz/fig_intuition/fig_intuition.pdf
           make tikz/fig_intuition/fig_intuition.pdf
           (cd tikz/fig_intuition; latexmk -pdf fig_intuition.tex)
@@ -55,8 +55,8 @@ jobs:
         run: |
           . venv/bin/activate
           make change
-          make fig/fig_intuition.pdf
-          make fig/fig_intuition.pdf
+          make fig/fig.pdf
+          make fig/fig.pdf
           make tikz/fig_intuition/fig_intuition.pdf
           (cd tikz/fig_intuition; latexmk -pdf fig_intuition.tex)
       - name: 'Upload PDFs as artifacts'
