@@ -48,6 +48,10 @@ jobs:
           path: |
             fig/*.pdf
             tikz/fig*/*.pdf
+            tikz/fig*/*.fls
+            tikz/fig*/*.log
+            tikz/fig*/*.fdb_latexmk
+            tikz/fig*/*.aux
       - name: Do change, and then rerun
         run: |
           . venv/bin/activate
@@ -63,3 +67,7 @@ jobs:
           path: |
             fig/*.pdf
             tikz/fig*/*.pdf
+            tikz/fig*/*.fls
+            tikz/fig*/*.log
+            tikz/fig*/*.fdb_latexmk
+            tikz/fig*/*.aux
