@@ -8,12 +8,17 @@ on:
 jobs:
   buildPython:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
     steps:
+      - name: update apt-get
+        run: apt-get update
+      - name: install git
+        run: |
+        apt install git
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: update apt-get
-        run: apt-get update
       - name: install latexmk
         run: |
           wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
