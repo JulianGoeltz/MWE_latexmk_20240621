@@ -8,7 +8,7 @@ change:
 	sed -i 's/time/mime/g' python/fig_intuition.py
 
 clean:
-	$(RM) fig/fig_intuition.pdf
+	$(RM) fig/*.pdf
 	cd ./tikz/fig_intuition; latexmk -pdf fig_intuition.tex -C
 
 .PHONY: change

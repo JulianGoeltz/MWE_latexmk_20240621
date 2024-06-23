@@ -4,7 +4,6 @@ name: compile pdf
 
 on:
   push:
-    branches: [ main, master ]
 
 jobs:
   buildPython:
