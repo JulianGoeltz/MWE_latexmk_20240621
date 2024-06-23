@@ -13,25 +13,26 @@ jobs:
     steps:
       - name: update apt-get
         run: apt-get update
-      - name: install git
+      - name: install git, wget
         run: |
           apt-get install -y git
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-      - name: install latexmk
-        run: |
-          curl -L -o install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-          zcat < install-tl-unx.tar.gz | tar xf -
-          cd install-tl-*
-          perl ./install-tl --no-interaction
-          echo /usr/local/texlive/2024/bin/x86_64-linux >> $GITHUB_PATH
+          apt-get install -y wget
       - name: install build-essential, python3-dev, python3-full, python3-venv
         run: |
           apt-get install -y build-essential
           apt-get install -y python3-dev
           apt-get install -y python3-full
           apt-get install -y python3-venv
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: install latexmk
+        run: |
+          wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+          zcat < install-tl-unx.tar.gz | tar xf -
+          cd install-tl-*
+          perl ./install-tl --no-interaction
+          echo /usr/local/texlive/2024/bin/x86_64-linux >> $GITHUB_PATH
       - name: create venv
         run: python3 -m venv venv
       - name: update pip in venv
